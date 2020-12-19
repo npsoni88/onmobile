@@ -18,8 +18,12 @@ data "aws_ami" "ubuntu" {
 }
 
 resource "aws_instance" "myserver" {
+  count = 5
   ami = data.aws_ami.ubuntu.image_id
   instance_type = var.size
+  tags = {
+    Name = "terraform-servers"
+  }
 }
 
 variable "size" {
@@ -27,6 +31,6 @@ variable "size" {
   default = "t2.micro"
 }
 
-output "serverip" {
-  value = aws_instance.myserver.public_ip
+output "all-servers" {
+  value = aws_instance.myserver[*].public_ip
 }
