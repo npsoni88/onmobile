@@ -21,34 +21,3 @@ resource "aws_instance" "myserver" {
   }
 }
 
-
-resource "aws_s3_bucket" "s3" {
-  bucket = "onmobile-s3-bucket-tut-123"
-  lifecycle {
-    prevent_destroy = true
-  }
-  versioning {
-    enabled = true
-  }
-}
-
-resource "aws_dynamodb_table" "dynamodb" {
-  name = "terraform-lock-table"
-  billing_mode = "PAY_PER_REQUEST"
-  hash_key = "LockID"
-
-  attribute {
-    name = "LockID"
-    type = "S"
-  }
-}
-
-terraform {
-  backend "s3" {
-    bucket= "onmobile-s3-bucket-tut-123"
-    key = "global/s3/terraform.tfstate"
-    region = "us-east-2"
-    dynamodb_table = "terraform-lock-table"
-    encrypt = true
-  }
-}
