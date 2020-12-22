@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-ConfigMap
+data:
+  cost: {{ .Values.cost }}
+  zone: {{ .Values.infra.zone | quote }}
+  region: {{ .Values.infra.region | quote }}
+  env: {{ .Values.infra.env | quote | upper }}
+{{- if eq .Values.infra.region "us-east-1" }}
+  autoscale: true
+{{ end }}
