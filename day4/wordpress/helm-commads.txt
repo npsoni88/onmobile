@@ -1,0 +1,32 @@
+Helm Github registry
+
+Setup the github repo
+- Create a new github repo
+- Create a local directory in your machine (helm-repo)
+- Git init
+- Add a readme
+- Git add .
+- Git commit
+- Add the remote github repo to your local machine directory
+- Git push all
+
+Package the app
+- cd helm-repo
+- helm package /path/to/your/chart (this will store the tarball of your chart in your current directory)
+- helm repo index .
+- git add ., git commit, git push
+
+
+Add the github repo to your helm installation
+- helm repo add REPO_NAME https://raw.githubusercontent.com/YOUR_GITHUB_USERNAME/repo-name/master
+- helm repo update
+- helm search repo REPO_NAME
+
+
+
+
+Upgrades
+- Make necessary changes to your chart (image name, other details)
+- helm upgrade YOUR_APP /path/to/chart
+- check history of that app deployment with "helm history YOUR_APP"
+- use "helm rollback YOUR_APP reivison_number" to roll back to previous releases

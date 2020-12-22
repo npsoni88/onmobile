@@ -1,0 +1,12 @@
+- Install istio
+Download istio - curl -L https://istio.io/downloadIstio | sh -
+cd istio*
+sudo mv bin/istioctl /usr/local/bin
+istioctl x check
+istioctl proxy-status
+
+Enable istio on default namespace
+kubectl label namespace/default istio-injection=enabled
+kubectl delete pods --all
+kubectl apply -n istio-system -f istio-1.8.1/samples/addons/grafana.yaml
+kubectl apply -n istio-system -f istio-1.8.1/samples/addons/prometheus.yaml
